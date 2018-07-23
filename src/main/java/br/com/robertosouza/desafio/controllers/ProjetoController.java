@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.robertosouza.desafio.dto.ChangeStatusDTO;
 import br.com.robertosouza.desafio.model.Projeto;
 import br.com.robertosouza.desafio.repositories.filter.ProjetoFilter;
 import br.com.robertosouza.desafio.services.ProjetoService;
@@ -54,16 +55,10 @@ public class ProjetoController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PutMapping("/nextstep/{id}")
-	public ResponseEntity<Projeto> nextStepProject(@PathVariable Long id) {
-		this.projetoService.nextStepProject(id);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@PutMapping("/previousstep/{id}")
-	public ResponseEntity<Projeto> previousStepProject(@PathVariable Long id) {
-		this.projetoService.previousStepProject(id);
-		return ResponseEntity.noContent().build();
+	@PutMapping("/changestep")
+	public ResponseEntity<Projeto> nextStepProject(@RequestBody ChangeStatusDTO changeStatusDTO) {
+		Projeto projeto = this.projetoService.changeStepProject(changeStatusDTO);
+		return ResponseEntity.ok(projeto);
 	}
 	
 }

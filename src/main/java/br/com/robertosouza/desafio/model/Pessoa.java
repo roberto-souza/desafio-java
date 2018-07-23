@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pessoa")
@@ -30,7 +31,6 @@ public class Pessoa {
 	@Column(name = "nome", length = 100)
 	private String nome;
 	
-	@Column(name = "datanascimento")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
 	
@@ -46,6 +46,7 @@ public class Pessoa {
 			name = "membros", 
 			joinColumns = {@JoinColumn(name = "idpessoa")}, 
 			inverseJoinColumns = {@JoinColumn(name = "idprojeto")})
+	@JsonIgnore
 	private Set<Projeto> projetos;
 	
 	public Pessoa() {}
